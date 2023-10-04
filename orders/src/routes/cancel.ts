@@ -6,6 +6,8 @@ import {
 } from '@shared-serve/shared';
 import express, { Request, Response } from 'express';
 import { Order } from '../models/orders';
+import { OrderCancelledPublisher } from '../events/publisher/order-cancelled-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -24,6 +26,15 @@ router.patch(
 
     order.status = OrderStatus.Cancelled;
     await order.save();
+
+    // Publish an event that has been cancelled
+    new OrderCancelledPublisher(natsWrapper.client).publish({
+      id: order.id,
+      ticket: {
+        id: order.ticket.id,
+        price: order.ticket.price,
+      },
+    });
 
     res.status(204).send(order);
   }
