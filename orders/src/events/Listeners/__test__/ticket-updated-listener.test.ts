@@ -12,16 +12,17 @@ const setup = async () => {
   // create and save a ticket
   const ticket = Ticket.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    title: 'concert',
+    title: 'the main',
     price: 20,
   });
+  await ticket.save();
 
   // create a fake data event
   const data: TicketUpdatedEvent['data'] = {
     id: ticket.id,
     version: ticket.version + 1,
-    title: 'the main',
-    price: 50,
+    title: 'main',
+    price: 10,
     userId: 'hafsghs',
   };
 

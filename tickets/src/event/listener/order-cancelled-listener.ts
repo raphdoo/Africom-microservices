@@ -1,19 +1,19 @@
 import {
   Listener,
   NotFoundError,
-  OrderCreatedEvent,
+  OrderCancelledEvent,
   Subjects,
 } from '@shared-serve/shared';
 import { queueGroupName } from './queue-group-name';
-import { Message } from 'node-nats-streaming';
 import { Ticket } from '../../models/tickets';
+import { Message } from 'node-nats-streaming';
 import { TicketUpdatedPublisher } from '../publisher/ticket-updated-publisher';
 
-export class OrderCreatedListerner extends Listener<OrderCreatedEvent> {
-  subject: Subjects.OrderCreated = Subjects.OrderCreated;
+export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
+  subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
   queueGroupName = queueGroupName;
 
-  async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+  async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
     // Find the ticket the order is reserving
     const ticket = await Ticket.findById(data.ticket.id);
 
@@ -21,15 +21,17 @@ export class OrderCreatedListerner extends Listener<OrderCreatedEvent> {
       throw new NotFoundError();
     }
     //Mark the ticket as reserved by setting orderId property
-    ticket.set({ orderId: data.id });
+    ticket.set({ orderId: undefined });
 
     await ticket.save();
+
     new TicketUpdatedPublisher(this.client).publish({
       id: ticket.id,
       price: ticket.price,
       title: ticket.title,
       userId: ticket.userId,
       orderId: ticket.orderId,
+      version: ticket.version,
     });
 
     //ack the message
