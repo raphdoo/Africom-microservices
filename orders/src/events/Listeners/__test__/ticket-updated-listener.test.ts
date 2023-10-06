@@ -44,9 +44,9 @@ it('finds, updates and saves a ticket', async () => {
   // write assertions to make sure a ticket was created
   const updatedTicket = await Ticket.findById(ticket.id);
 
-  expect(updatedTicket!.title).toEqual(ticket.title);
-  expect(updatedTicket!.price).toEqual(ticket.price);
-  expect(updatedTicket!.version).toEqual(ticket.version);
+  expect(updatedTicket!.title).toEqual(data.title);
+  expect(updatedTicket!.price).toEqual(data.price);
+  expect(updatedTicket!.version).toEqual(data.version);
 });
 
 it('acks the message', async () => {
