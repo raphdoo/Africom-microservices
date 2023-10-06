@@ -109,6 +109,7 @@ it('rejects the update if the ticket is reserved', async () => {
 
   const ticket = await Ticket.findById(response.body.id);
   ticket!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
+  await ticket!.save();
 
   await request(app)
     .put(`/api/tickets/${response.body.id}`)

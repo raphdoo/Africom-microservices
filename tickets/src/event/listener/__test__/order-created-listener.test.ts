@@ -41,13 +41,13 @@ const setup = async () => {
 };
 
 it('sets the orderId of the ticket', async () => {
-  const { listener, data, msg } = await setup();
+  const { listener, data, ticket, msg } = await setup();
 
   // call the onMessage function with the data object + message object
   await listener.onMessage(data, msg);
 
   // write assertions to make sure a ticket was created
-  const updatedTicket = await Ticket.findById(data.id);
+  const updatedTicket = await Ticket.findById(ticket.id);
 
   expect(updatedTicket!.orderId).toEqual(data.id);
 });
