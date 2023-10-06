@@ -4,3 +4,4 @@ nats-test/node_modules
 orders/node_modules
 shared/node_modules
 tickets/node_modules
+expiration/node_modules
