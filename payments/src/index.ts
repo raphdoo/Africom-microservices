@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+import { OrderCreatedListerner } from './events/listeners/order-created-listener';
 
 // Mongodb setup
 const start = async () => {
@@ -41,6 +43,9 @@ const start = async () => {
       natsWrapper.client.close();
     });
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new OrderCancelledListener(natsWrapper.client).listen();
+    new OrderCreatedListerner(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDb');
