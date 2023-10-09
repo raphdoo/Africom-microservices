@@ -4,6 +4,7 @@ import { natsWrapper } from './nats-wrapper';
 import { TicketCreatedListener } from './events/Listeners/ticket-created-listeners';
 import { TicketUpdatedListener } from './events/Listeners/ticket-updated-listener';
 import { ExpirationCompleteListener } from './events/Listeners/expiration-complete-listener';
+import { PaymentCreatedListener } from './events/Listeners/payment-created-listener';
 
 // Mongodb setup
 const start = async () => {
@@ -49,6 +50,7 @@ const start = async () => {
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
     new ExpirationCompleteListener(natsWrapper.client).listen();
+    new PaymentCreatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDb');
