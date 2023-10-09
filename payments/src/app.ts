@@ -8,6 +8,7 @@ import 'express-async-errors';
 // Import routes
 
 import { errorHandler, NotFoundError, currentUser } from '@shared-serve/shared';
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(
 app.use(currentUser);
 
 // Routes
+app.use(createChargeRouter);
 
 // handling other routes
 app.all('*', async () => {

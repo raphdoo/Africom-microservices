@@ -26,7 +26,7 @@ router.post(
       throw new NotFoundError();
     }
 
-    if (order.id !== req.currentUser!.id) {
+    if (order.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
 
