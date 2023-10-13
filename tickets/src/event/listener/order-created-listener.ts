@@ -4,10 +4,13 @@ import {
   OrderCreatedEvent,
   Subjects,
 } from '@shared-serve/shared';
+
+import { ExpirationCompleteEvent } from '@sgtickets/common';
 import { queueGroupName } from './queue-group-name';
 import { Message } from 'node-nats-streaming';
 import { Ticket } from '../../models/tickets';
 import { TicketUpdatedPublisher } from '../publisher/ticket-updated-publisher';
+import { natsWrapper } from '../../nats-wrapper';
 
 export class OrderCreatedListerner extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;

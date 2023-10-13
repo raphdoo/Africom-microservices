@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sgtickets/common": "^1.0.24",
     "@shared-serve/shared": "^1.0.2",
     "@types/cookie-session": "^2.0.45",
     "@types/express": "^4.17.17",

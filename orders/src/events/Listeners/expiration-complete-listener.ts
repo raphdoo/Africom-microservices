@@ -1,15 +1,9 @@
-import {
-  Listener,
-  Subjects,
-  ExpirationCompleteEvent,
-  NotFoundError,
-  OrderStatus,
-} from '@shared-serve/shared';
+import { Listener, NotFoundError, OrderStatus } from '@shared-serve/shared';
 import { queueGroupName } from './queue-group-name';
 import { Message } from 'node-nats-streaming';
 import { Order } from '../../models/orders';
+import { ExpirationCompleteEvent, Subjects } from '@shared-serve/shared';
 import { OrderCancelledPublisher } from '../publisher/order-cancelled-publisher';
-import { natsWrapper } from '../../nats-wrapper';
 
 export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent> {
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
@@ -33,7 +27,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
 
     await order.save();
 
-    await new OrderCancelledPublisher(natsWrapper.client).publish({
+    await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version,
       ticket: {

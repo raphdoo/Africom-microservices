@@ -22,7 +22,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.ts'
+          - src: '**/*.js'
             dest: .
     - image: raph0/tickets
       context: tickets
