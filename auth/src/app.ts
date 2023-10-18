@@ -24,7 +24,7 @@ app.use(
   })
 );
 
-// Routes
+// Routes endpoints
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
