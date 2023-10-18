@@ -5,7 +5,9 @@ import { NotFoundError } from '@shared-serve/shared';
 const router = express.Router();
 
 router.get('/api/tickets', async (req, res) => {
-  const ticket = await Ticket.find({});
+  const ticket = await Ticket.find({
+    orderId: undefined,
+  });
 
   if (!ticket) {
     throw new NotFoundError();

@@ -13,7 +13,7 @@ export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   version: number;
-  isReserved(): Promise<Boolean>;
+  isReserved(): Promise<boolean>;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {

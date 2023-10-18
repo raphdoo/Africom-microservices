@@ -1,7 +1,7 @@
-export enum Subjects {
-  TicketCreated = 'ticket:created',
-  OrderUpdated = 'order:updated',
-}
+// export enum Subjects {
+//   TicketCreated = 'ticket:created',
+//   OrderUpdated = 'order:updated',
+// }
 
 // const printSubject = (subjects: Subjects) => {
 

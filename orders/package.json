@@ -31,7 +31,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
     "mongoose-update-if-current": "^1.4.0",
-    "node-nats-streaming": "^0.3.2",
+    "node-nats-streaming": "^0.2.6",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
