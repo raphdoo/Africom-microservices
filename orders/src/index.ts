@@ -8,6 +8,7 @@ import { PaymentCreatedListener } from './events/Listeners/payment-created-liste
 
 // Mongodb setup
 const start = async () => {
+  console.log('starting');
   //check enviroment variables are set
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
