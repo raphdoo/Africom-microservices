@@ -34,7 +34,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-// Helper function for handling signup
+// Helper function for handling signup of new user
 global.signup = async () => {
   const email = 'test@test.com';
   const password = '123456';
